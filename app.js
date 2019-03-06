@@ -12,6 +12,7 @@ svc.setAppMiddleware(app);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
+//svc.apiSetUp(app);
 app.use('/api/v1',api);
 
 module.exports = app;

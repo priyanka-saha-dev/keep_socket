@@ -1,12 +1,66 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Share Note API</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/socket.io-client/dist/socket.io.js"></script>
+  <title>Web API</title>
 </head>
+
 <body>
+
+  <!-- <a name="Share a note" href="http://localhost:3000/api/v1/notes/emit"></a>
+  <a name="See shared notes" href="http://localhost:3000/api/v1/notes/listen"></a> -->
+
+  <button id="shareNote">Share a Note</button>
+  <!-- <button id="seeNote">See Shared a Note</button> -->
   
+  <div id="userdata">
+    Login: <input type="text" id="userid" />
+    <button id="seeNote">See Note for user</button> 
+  </div>
+
+  <div id="message">
+  </div>
+
+  <div id="data">
+  </div>
+
+  <script type="text/javascript">
+    const socket = io();
+
+    // $('#seeNote').on('click', (event) => {
+    //   const userID = $('#userid').val();
+    //   socket.emit('getNote', userID);
+    // });
+
+    $('#shareNote').on('click', (event) => {
+      //shareNotewithUsers(event, socket);
+      
+      let data = {
+        noteId: 'a8950070-38c9-11e9-a202-752822f85531',
+        userId: ['u1', 'u2']
+      }
+      socket.emit('shareNote', data);
+    });
+
+    socket.on('message', (message) => {
+      document.getElementById('message').innerHTML = message;
+    });
+
+    socket.on('getNote', (data) => {
+      console.log('on getnote');
+      document.getElementById('data').innerHTML = data;
+    });
+
+
+  </script>
 </body>
+
 </html>
