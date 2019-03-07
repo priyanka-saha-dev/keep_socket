@@ -24,19 +24,19 @@ const shareNotes = (notes, userIds) => {
       if (error) {
         reject({
           message: "error : " + error.message,
-          status: "500"
+          status: 500
         });
       } else if (data) {
 
         if (data.nModified > 0 && data.n > 0) {
           resolve({
             message: "data updated for notes : " + notes,
-            status: "201"
+            status: 201
           });
         } else {
           reject({
             message: "No data found for notes : " + notes,
-            status: "404"
+            status: 404
           });
         }
       }
@@ -63,24 +63,17 @@ const getNoteForUserID = (userID) => {
         });
       } else {
 
-        // console.log('notes : ' , notes);
-
         const notesShared = notes.filter(note => {
           return note.sharedTo.find(n1 => n1 === userID);
         });
 
-        if(!notesShared || notesShared.length === 0) {
-          reject({
-            message: `No Notes shared by userID ${userID}`,
-            status: 404
-          });
-        } else {
-          resolve({
-            message: 'Shared Notes Recieved - ' + notesShared.length,
-            status: 200,
-            notes: notesShared
-          });
-        }
+        // console.log('notes : ' , notesShared);
+
+        resolve({
+          message: 'Shared Notes Recieved - ' + notesShared.length,
+          status: 200,
+          notes: notesShared
+        });
         
         
       }

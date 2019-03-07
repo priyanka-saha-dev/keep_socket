@@ -18,15 +18,22 @@
   <!-- <a name="Share a note" href="http://localhost:3000/api/v1/notes/emit"></a>
   <a name="See shared notes" href="http://localhost:3000/api/v1/notes/listen"></a> -->
 
-  <button id="shareNote">Share a Note</button>
-  <!-- <button id="seeNote">See Shared a Note</button> -->
+  
   
   <div id="userdata">
-    Login: <input type="text" id="userid" />
-    <button id="seeNote">See Note for user</button> 
+    Share note for note ID: <input type="text" id="noteID" />
+    <button id="shareNote">Share a Note</button> 
+
+    <br/>
+
+    Get note for user ID: <input type="text" id="userID" />
+    <button id="getNote">Get Note</button> 
   </div>
 
   <div id="message">
+  </div>
+
+  <div id="message2">
   </div>
 
   <div id="data">
@@ -35,16 +42,18 @@
   <script type="text/javascript">
     const socket = io();
 
-    // $('#seeNote').on('click', (event) => {
-    //   const userID = $('#userid').val();
-    //   socket.emit('getNote', userID);
-    // });
+    $("#getNote").on('click', (event) => {
+      const userID = $("#userID").val();
+      if(userID) {
+        socket.emit('getNote', userID);
+      }
+    });
 
     $('#shareNote').on('click', (event) => {
       //shareNotewithUsers(event, socket);
       
       let data = {
-        noteId: 'a8950070-38c9-11e9-a202-752822f85531',
+        noteId: $("#noteID").val(),
         userId: ['u1', 'u2']
       }
       socket.emit('shareNote', data);
@@ -52,6 +61,12 @@
 
     socket.on('message', (message) => {
       document.getElementById('message').innerHTML = message;
+    });
+
+    socket.on('message2', (message) => {
+      console.log('message2 : ' + message)
+      const newMessage = `<div> ${message} </div>`;
+      document.getElementById('message2').innerHTML += newMessage;
     });
 
     socket.on('getNote', (data) => {
