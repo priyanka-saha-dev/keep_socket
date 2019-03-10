@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "test": "mocha ./test/*.spec.js",
-    "lint": "node_modules/.bin/eslint './api/v1/**/*.js' --ignore-path .eslintignore"
+    "lint": "eslint './api/v1/**/*.js' --ignore-path .eslintignore"
   },
   "repository": {
     "type": "git",

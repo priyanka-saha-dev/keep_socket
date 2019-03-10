@@ -18,8 +18,8 @@ const shareNotes = (notes, userIds) => {
       }
     }, (error, data) => {
 
-      console.log('error in mongoose :', error);
-      console.log('data after update :', data);
+      //console.log('error in mongoose :', error);
+      //console.log('data after update :', data);
 
       if (error) {
         reject({

@@ -1,6 +1,6 @@
 const svc = require('./notes.service');
 
-const shareNotes = (req, res, next) => {
+const shareNotes = (req, res) => {
   try {
     const notes = req.body.notes;
     const userIds = req.body.userId;
@@ -17,7 +17,7 @@ const shareNotes = (req, res, next) => {
   }
 };
 
-const getNoteForUserID = (req, res, next) => {
+const getNoteForUserID = (req, res) => {
   try {
     const userIds = req.query.userId;
     

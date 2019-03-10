@@ -2,7 +2,7 @@ const noteSvc = require('./api/v1/notes/notes.service');
 
 const socketApp = (io) => {
   io.on('connection', (socket) => {
-    console.log('a user has connected');
+    //console.log('a user has connected');
 
     socket.on('shareNote', (data) => {
 

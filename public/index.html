@@ -22,6 +22,7 @@
   
   <div id="userdata">
     Share note for note ID: <input type="text" id="noteID" />
+    Share note for users: <input type="text" id="listUserID" />
     <button id="shareNote">Share a Note</button> 
 
     <br/>
@@ -51,10 +52,14 @@
 
     $('#shareNote').on('click', (event) => {
       //shareNotewithUsers(event, socket);
-      
+
+      let listUserIDs = $("#listUserID").val();
+
+      let listUserID = listUserIDs.split(',');
+
       let data = {
         noteId: $("#noteID").val(),
-        userId: ['u1', 'u2']
+        userId: listUserID
       }
       socket.emit('shareNote', data);
     });
@@ -64,13 +69,13 @@
     });
 
     socket.on('message2', (message) => {
-      console.log('message2 : ' + message)
+      //console.log('message2 : ' + message)
       const newMessage = `<div> ${message} </div>`;
       document.getElementById('message2').innerHTML += newMessage;
     });
 
     socket.on('getNote', (data) => {
-      console.log('on getnote');
+      //console.log('on getnote');
       document.getElementById('data').innerHTML = data;
     });
 
